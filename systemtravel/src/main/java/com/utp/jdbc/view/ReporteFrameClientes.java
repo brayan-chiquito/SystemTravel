@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.utp.jdbc.controller.CategoriaController;
 
-public class ReporteFrame extends JFrame {
+public class ReporteFrameClientes extends JFrame {
 
     private static final long serialVersionUID = 1L;
 
@@ -17,7 +17,7 @@ public class ReporteFrame extends JFrame {
 
     private CategoriaController categoriaController;
 
-    public ReporteFrame(ControlDeStockFrame controlDeStockFrame) {
+    public ReporteFrameClientes(ControlDeClientes controlDeClientes) {
         super("Reporte de produtos del stock");
 
         this.categoriaController = new CategoriaController();
@@ -39,7 +39,7 @@ public class ReporteFrame extends JFrame {
 
         setSize(600, 400);
         setVisible(true);
-        setLocationRelativeTo(controlDeStockFrame);
+        setLocationRelativeTo(controlDeClientes);
     }
 
     private void cargaReporte() {

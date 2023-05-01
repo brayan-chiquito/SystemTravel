@@ -18,12 +18,12 @@ import javax.swing.table.DefaultTableModel;
 import com.utp.jdbc.controller.CategoriaController;
 import com.utp.jdbc.controller.ProductoController;
 
-public class ControlDeStockFrame extends JFrame {
+public class ControlDeSucursales extends JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    private JLabel labelNombre, labelApellido, labelDireccion, labelTelefono;
-    private JTextField textoNombre, textoApellido, textoDireccion, textoTelefono;
+    private JLabel labelDireccion, labelTelefono;
+    private JTextField textoDireccion, textoTelefono;
     private JComboBox<Object> comboCategoria;
     private JButton botonGuardar, botonModificar, botonLimpiar, botonEliminar, botonReporte;
     private JTable tabla;
@@ -31,9 +31,9 @@ public class ControlDeStockFrame extends JFrame {
     private ProductoController productoController;
     private CategoriaController categoriaController;
 
-    public ControlDeStockFrame() {
-        super("Clientes");
-
+    public ControlDeSucursales() {
+        super("Sucursales");
+        //falta
         this.categoriaController = new CategoriaController();
         this.productoController = new ProductoController();
 
@@ -49,7 +49,7 @@ public class ControlDeStockFrame extends JFrame {
 
     private void configurarTablaDeContenido(Container container) {
         tabla = new JTable();
-
+//falta
         modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("Identificador del Producto");
         modelo.addColumn("Nombre del Producto");
@@ -77,24 +77,17 @@ public class ControlDeStockFrame extends JFrame {
     }
 
     private void configurarCamposDelFormulario(Container container) {
-        labelNombre = new JLabel("Nombre del Producto");
-        labelApellido = new JLabel("Descripción del Producto");
-        labelDireccion = new JLabel("Cantidad");
-        labelTelefono = new JLabel("Categoría del Producto");
+        labelDireccion = new JLabel("Direccion");
+        labelTelefono = new JLabel("Telefono");
 
-        labelNombre.setBounds(10, 10, 240, 15);
-        labelApellido.setBounds(10, 50, 240, 15);
-        labelDireccion.setBounds(10, 90, 240, 15);
-        labelTelefono.setBounds(10, 130, 240, 15);
+        labelDireccion.setBounds(10, 10, 240, 15);
+        labelTelefono.setBounds(10, 50, 240, 15);
 
-        labelNombre.setForeground(Color.BLACK);
-        labelApellido.setForeground(Color.BLACK);
+        labelDireccion.setForeground(Color.BLACK);
         labelTelefono.setForeground(Color.BLACK);
 
-        textoNombre = new JTextField();
-        textoApellido = new JTextField();
         textoDireccion = new JTextField();
-        textoTelefono= new JTextField();
+        textoTelefono = new JTextField();
 //        comboCategoria = new JComboBox<>();
 //        comboCategoria.addItem("Elige una Categoría");
 
@@ -102,22 +95,16 @@ public class ControlDeStockFrame extends JFrame {
         var categorias = this.categoriaController.listar();
         // categorias.forEach(categoria -> comboCategoria.addItem(categoria));
 
-        textoNombre.setBounds(10, 25, 265, 20);
-        textoApellido.setBounds(10, 65, 265, 20);
-        textoDireccion.setBounds(10, 105, 265, 20);
-        comboCategoria.setBounds(10, 145, 265, 20);
+        textoDireccion.setBounds(10, 25, 265, 20);
+        textoTelefono.setBounds(10, 65, 265, 20);
 
         botonGuardar = new JButton("Guardar");
         botonLimpiar = new JButton("Limpiar");
         botonGuardar.setBounds(10, 175, 80, 20);
         botonLimpiar.setBounds(100, 175, 80, 20);
 
-        container.add(labelNombre);
-        container.add(labelApellido);
         container.add(labelDireccion);
         container.add(labelTelefono);
-        container.add(textoNombre);
-        container.add(textoApellido);
         container.add(textoDireccion);
         container.add(textoTelefono);
         container.add(botonGuardar);
@@ -163,7 +150,7 @@ public class ControlDeStockFrame extends JFrame {
     }
 
     private void abrirReporte() {
-        new ReporteFrame(this);
+        new ReporteFrameSucursales(this);
     }
 
     private void limpiarTabla() {
@@ -221,8 +208,8 @@ public class ControlDeStockFrame extends JFrame {
     }
 
     private void guardar() {
-        if (textoNombre.getText().isBlank() || textoApellido.getText().isBlank()) {
-            JOptionPane.showMessageDialog(this, "Los campos Nombre y Descripción son requeridos.");
+        if (textoDireccion.getText().isBlank() || textoTelefono.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Los campos Nombre y Apellido son requeridos.");
             return;
         }
 
@@ -237,7 +224,7 @@ public class ControlDeStockFrame extends JFrame {
         }
 
         // TODO
-        var producto = new Object[] { textoNombre.getText(), textoApellido.getText(), cantidadInt };
+        var producto = new Object[] { textoDireccion.getText(), textoTelefono.getText(), cantidadInt };
         var categoria = comboCategoria.getSelectedItem();
 
         this.productoController.guardar(producto);
@@ -248,8 +235,8 @@ public class ControlDeStockFrame extends JFrame {
     }
 
     private void limpiarFormulario() {
-        this.textoNombre.setText("");
-        this.textoApellido.setText("");
+        this.textoDireccion.setText("");
+        this.textoTelefono.setText("");
         this.textoDireccion.setText("");
         this.comboCategoria.setSelectedIndex(0);
     }

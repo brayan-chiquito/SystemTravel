@@ -1,4 +1,4 @@
-package com.alura.jdbc.view;
+package com.utp.jdbc.view;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -18,12 +18,12 @@ import javax.swing.table.DefaultTableModel;
 import com.utp.jdbc.controller.CategoriaController;
 import com.utp.jdbc.controller.ProductoController;
 
-public class ControlDeStockFrame extends JFrame {
+public class ControlDeHoteles extends JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    private JLabel labelNombre, labelDescripcion, labelCantidad, labelCategoria;
-    private JTextField textoNombre, textoDescripcion, textoCantidad;
+    private JLabel labelNombre, labelDireccion, labelCiudad, labelTelefono,labelPlazasDisponibles;
+    private JTextField textoNombre, textoDireccion, textoCiudad, textoTelefono, textoPlazasDisponibles;
     private JComboBox<Object> comboCategoria;
     private JButton botonGuardar, botonModificar, botonLimpiar, botonEliminar, botonReporte;
     private JTable tabla;
@@ -31,9 +31,9 @@ public class ControlDeStockFrame extends JFrame {
     private ProductoController productoController;
     private CategoriaController categoriaController;
 
-    public ControlDeStockFrame() {
-        super("Productos");
-
+    public ControlDeHoteles() {
+        super("Hoteles");
+        //falta
         this.categoriaController = new CategoriaController();
         this.productoController = new ProductoController();
 
@@ -49,7 +49,7 @@ public class ControlDeStockFrame extends JFrame {
 
     private void configurarTablaDeContenido(Container container) {
         tabla = new JTable();
-
+        //falta
         modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("Identificador del Producto");
         modelo.addColumn("Nombre del Producto");
@@ -77,34 +77,40 @@ public class ControlDeStockFrame extends JFrame {
     }
 
     private void configurarCamposDelFormulario(Container container) {
-        labelNombre = new JLabel("Nombre del Producto");
-        labelDescripcion = new JLabel("Descripción del Producto");
-        labelCantidad = new JLabel("Cantidad");
-        labelCategoria = new JLabel("Categoría del Producto");
+        labelNombre = new JLabel("Nombre");
+        labelDireccion = new JLabel("direccion");
+        labelCiudad = new JLabel("ciudad");
+        labelTelefono = new JLabel("Telefono");
+        labelPlazasDisponibles = new JLabel("Plazas disponibles");
 
         labelNombre.setBounds(10, 10, 240, 15);
-        labelDescripcion.setBounds(10, 50, 240, 15);
-        labelCantidad.setBounds(10, 90, 240, 15);
-        labelCategoria.setBounds(10, 130, 240, 15);
+        labelDireccion.setBounds(10, 50, 240, 15);
+        labelCiudad.setBounds(10, 90, 240, 15);
+        labelTelefono.setBounds(10, 130, 240, 15);
+        labelPlazasDisponibles.setBounds(300,10,240,15);
 
         labelNombre.setForeground(Color.BLACK);
-        labelDescripcion.setForeground(Color.BLACK);
-        labelCategoria.setForeground(Color.BLACK);
+        labelDireccion.setForeground(Color.BLACK);
+        labelTelefono.setForeground(Color.BLACK);
+        labelPlazasDisponibles.setForeground(Color.BLACK);
 
         textoNombre = new JTextField();
-        textoDescripcion = new JTextField();
-        textoCantidad = new JTextField();
-        comboCategoria = new JComboBox<>();
-        comboCategoria.addItem("Elige una Categoría");
+        textoDireccion = new JTextField();
+        textoCiudad = new JTextField();
+        textoTelefono = new JTextField();
+        textoPlazasDisponibles = new JTextField();
+//        comboCategoria = new JComboBox<>();
+//        comboCategoria.addItem("Elige una Categoría");
 
         // TODO
         var categorias = this.categoriaController.listar();
         // categorias.forEach(categoria -> comboCategoria.addItem(categoria));
 
         textoNombre.setBounds(10, 25, 265, 20);
-        textoDescripcion.setBounds(10, 65, 265, 20);
-        textoCantidad.setBounds(10, 105, 265, 20);
-        comboCategoria.setBounds(10, 145, 265, 20);
+        textoDireccion.setBounds(10, 65, 265, 20);
+        textoCiudad.setBounds(10, 105, 265, 20);
+        textoTelefono.setBounds(10, 145, 265, 20);
+        textoPlazasDisponibles.setBounds(300,25,265,20);
 
         botonGuardar = new JButton("Guardar");
         botonLimpiar = new JButton("Limpiar");
@@ -112,17 +118,19 @@ public class ControlDeStockFrame extends JFrame {
         botonLimpiar.setBounds(100, 175, 80, 20);
 
         container.add(labelNombre);
-        container.add(labelDescripcion);
-        container.add(labelCantidad);
-        container.add(labelCategoria);
+        container.add(labelDireccion);
+        container.add(labelCiudad);
+        container.add(labelTelefono);
+        container.add(labelPlazasDisponibles);
         container.add(textoNombre);
-        container.add(textoDescripcion);
-        container.add(textoCantidad);
-        container.add(comboCategoria);
+        container.add(textoDireccion);
+        container.add(textoCiudad);
+        container.add(textoTelefono);
+        container.add(textoPlazasDisponibles);
         container.add(botonGuardar);
         container.add(botonLimpiar);
     }
-
+    //falta 
     private void configurarAccionesDelFormulario() {
         botonGuardar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -162,7 +170,7 @@ public class ControlDeStockFrame extends JFrame {
     }
 
     private void abrirReporte() {
-        new ReporteFrame(this);
+        new ReporteFrameHoteles(this);
     }
 
     private void limpiarTabla() {
@@ -220,15 +228,15 @@ public class ControlDeStockFrame extends JFrame {
     }
 
     private void guardar() {
-        if (textoNombre.getText().isBlank() || textoDescripcion.getText().isBlank()) {
-            JOptionPane.showMessageDialog(this, "Los campos Nombre y Descripción son requeridos.");
+        if (textoNombre.getText().isBlank() || textoDireccion.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Los campos Nombre y Apellido son requeridos.");
             return;
         }
 
         Integer cantidadInt;
 
         try {
-            cantidadInt = Integer.parseInt(textoCantidad.getText());
+            cantidadInt = Integer.parseInt(textoCiudad.getText());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, String
                     .format("El campo cantidad debe ser numérico dentro del rango %d y %d.", 0, Integer.MAX_VALUE));
@@ -236,7 +244,7 @@ public class ControlDeStockFrame extends JFrame {
         }
 
         // TODO
-        var producto = new Object[] { textoNombre.getText(), textoDescripcion.getText(), cantidadInt };
+        var producto = new Object[] { textoNombre.getText(), textoDireccion.getText(), cantidadInt };
         var categoria = comboCategoria.getSelectedItem();
 
         this.productoController.guardar(producto);
@@ -248,8 +256,8 @@ public class ControlDeStockFrame extends JFrame {
 
     private void limpiarFormulario() {
         this.textoNombre.setText("");
-        this.textoDescripcion.setText("");
-        this.textoCantidad.setText("");
+        this.textoDireccion.setText("");
+        this.textoCiudad.setText("");
         this.comboCategoria.setSelectedIndex(0);
     }
 

@@ -1,4 +1,4 @@
-package com.alura.jdbc.view;
+package com.utp.jdbc.view;
 
 import java.awt.Container;
 
@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.utp.jdbc.controller.CategoriaController;
 
-public class ReporteFrame extends JFrame {
+public class ReporteFrameSucursales extends JFrame {
 
     private static final long serialVersionUID = 1L;
 
@@ -17,7 +17,7 @@ public class ReporteFrame extends JFrame {
 
     private CategoriaController categoriaController;
 
-    public ReporteFrame(ControlDeStockFrame controlDeStockFrame) {
+    public ReporteFrameSucursales(ControlDeSucursales controlDeSucursales) {
         super("Reporte de produtos del stock");
 
         this.categoriaController = new CategoriaController();
@@ -39,7 +39,7 @@ public class ReporteFrame extends JFrame {
 
         setSize(600, 400);
         setVisible(true);
-        setLocationRelativeTo(controlDeStockFrame);
+        setLocationRelativeTo(controlDeSucursales);
     }
 
     private void cargaReporte() {
