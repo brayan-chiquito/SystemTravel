@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
     <fullyQualifiedTypeName name="com.utp.jdbc.view.ReporteFrameHoteles"/>
-    <fullyQualifiedTypeName name="com.utp.jdbc.view.ControlDeHoteles"/>
     <fullyQualifiedTypeName name="javax.swing.JLabel"/>
-    <fullyQualifiedTypeName name="java.awt.Color"/>
     <fullyQualifiedTypeName name="javax.swing.JTextField"/>
     <fullyQualifiedTypeName name="com.utp.jdbc.view.ReporteFrameSucursales"/>
+    <fullyQualifiedTypeName name="java.awt.Color"/>
+    <fullyQualifiedTypeName name="com.utp.jdbc.view.ReporteFrameVuelos"/>
+    <fullyQualifiedTypeName name="javax.swing.JFrame"/>
+    <fullyQualifiedTypeName name="com.utp.jdbc.view.Menu"/>
+    <fullyQualifiedTypeName name="com.utp.jdbc.view.ControlDeClientes"/>
+    <fullyQualifiedTypeName name="com.utp.jdbc.view.ControlDeHoteles"/>
     <fullyQualifiedTypeName name="com.utp.jdbc.view.ControlDeSucursales"/>
+    <fullyQualifiedTypeName name="com.utp.jdbc.view.ControlDeVuelos"/>
 </qualifiedTypeNameHistroy>
