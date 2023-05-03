@@ -16,7 +16,8 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.utp.jdbc.controller.CategoriaController;
-import com.utp.jdbc.controller.ProductoController;
+import com.utp.jdbc.controller.ClientesController;
+import com.utp.jdbc.modelo.Clientes;
 
 public class ControlDeClientes extends JFrame {
 
@@ -28,14 +29,14 @@ public class ControlDeClientes extends JFrame {
     private JButton botonGuardar, botonModificar, botonLimpiar, botonEliminar, botonReporte;
     private JTable tabla;
     private DefaultTableModel modelo;
-    private ProductoController productoController;
+    private ClientesController clientesController;
     private CategoriaController categoriaController;
 
     public ControlDeClientes() {
         super("Clientes");
         //falta
         this.categoriaController = new CategoriaController();
-        this.productoController = new ProductoController();
+        this.clientesController = new ClientesController();
 
         Container container = getContentPane();
         setLayout(null);
@@ -51,9 +52,12 @@ public class ControlDeClientes extends JFrame {
         tabla = new JTable();
 
         modelo = (DefaultTableModel) tabla.getModel();
-        modelo.addColumn("Identificador del Producto");
-        modelo.addColumn("Nombre del Producto");
-        modelo.addColumn("Descripción del Producto");
+        modelo.addColumn("codigo");
+        modelo.addColumn("nombre");
+        modelo.addColumn("apellido");
+        modelo.addColumn("direccion");
+        modelo.addColumn("telefono");
+
 
         cargarTabla();
 
@@ -185,8 +189,8 @@ public class ControlDeClientes extends JFrame {
                     Integer id = (Integer) modelo.getValueAt(tabla.getSelectedRow(), 0);
                     String nombre = (String) modelo.getValueAt(tabla.getSelectedRow(), 1);
                     String descripcion = (String) modelo.getValueAt(tabla.getSelectedRow(), 2);
-
-                    this.productoController.modificar(nombre, descripcion, id);
+//********************
+                    //this.productoController.modificar(nombre, descripcion, id);
                 }, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
     }
 
@@ -199,8 +203,8 @@ public class ControlDeClientes extends JFrame {
         Optional.ofNullable(modelo.getValueAt(tabla.getSelectedRow(), tabla.getSelectedColumn()))
                 .ifPresentOrElse(fila -> {
                     Integer id = (Integer) modelo.getValueAt(tabla.getSelectedRow(), 0);
-
-                    this.productoController.eliminar(id);
+//********************
+                   //this.productoController.eliminar(id);
 
                     modelo.removeRow(tabla.getSelectedRow());
 
@@ -209,38 +213,37 @@ public class ControlDeClientes extends JFrame {
     }
 
     private void cargarTabla() {
-        var productos = this.productoController.listar();
-
-        try {
-            // TODO
-            // productos.forEach(producto -> modelo.addRow(new Object[] { "id", "nombre",
-            // "descripcion" }));
-        } catch (Exception e) {
-            throw e;
-        }
+        var clientes = this.clientesController.listar();
+        clientes.forEach(cliente -> modelo.addRow(
+        		new Object[] {
+        			cliente.getCodigo(),
+        			cliente.getNombre(),
+        			cliente.getApellido(),
+        			cliente.getDireccion(),
+        			cliente.getTelefono()}));
     }
-
+    //ya
     private void guardar() {
         if (textoNombre.getText().isBlank() || textoApellido.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "Los campos Nombre y Apellido son requeridos.");
             return;
         }
 
-        Integer cantidadInt;
-
-        try {
-            cantidadInt = Integer.parseInt(textoDireccion.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, String
-                    .format("El campo cantidad debe ser numérico dentro del rango %d y %d.", 0, Integer.MAX_VALUE));
-            return;
-        }
+//        Integer cantidadInt;
+//
+//        try {
+//            cantidadInt = Integer.parseInt(textoDireccion.getText());
+//        } catch (NumberFormatException e) {
+//            JOptionPane.showMessageDialog(this, String
+//                    .format("El campo cantidad debe ser numérico dentro del rango %d y %d.", 0, Integer.MAX_VALUE));
+//            return;
+//        }
 
         // TODO
-        var producto = new Object[] { textoNombre.getText(), textoApellido.getText(), cantidadInt };
-        var categoria = comboCategoria.getSelectedItem();
+        var cliente = new Clientes(textoNombre.getText(),textoApellido.getText(),textoDireccion.getText(),textoTelefono.getText());
+        //var categoria = comboCategoria.getSelectedItem();
 
-        this.productoController.guardar(producto);
+        this.clientesController.guardar(cliente);
 
         JOptionPane.showMessageDialog(this, "Registrado con éxito!");
 
@@ -251,7 +254,7 @@ public class ControlDeClientes extends JFrame {
         this.textoNombre.setText("");
         this.textoApellido.setText("");
         this.textoDireccion.setText("");
-        this.comboCategoria.setSelectedIndex(0);
+        this.textoTelefono.setText("");
     }
 
 }

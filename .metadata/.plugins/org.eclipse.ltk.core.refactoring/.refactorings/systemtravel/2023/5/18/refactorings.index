@@ -27,3 +27,10 @@
 1682960678071	Rename field 'textoCiudad'
 1682960798132	Rename field 'textoTelefono'
 1682961282733	Copy compilation unit
+1683061046439	Rename type 'ProductoController'
+1683067381365	Rename local variable 'producto'
+1683068357997	Rename local variable 'producto'
+1683072055043	Copy compilation unit
+1683072123202	Move compilation unit
+1683072185418	Copy compilation unit
+1683073536266	Rename local variable 'cantidadInt'

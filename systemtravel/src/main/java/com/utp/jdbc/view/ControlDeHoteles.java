@@ -16,7 +16,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.utp.jdbc.controller.CategoriaController;
-import com.utp.jdbc.controller.ProductoController;
+import com.utp.jdbc.controller.ClientesController;
+import com.utp.jdbc.controller.HotelesController;
+import com.utp.jdbc.modelo.Hoteles;
 
 public class ControlDeHoteles extends JFrame {
 
@@ -28,14 +30,14 @@ public class ControlDeHoteles extends JFrame {
     private JButton botonGuardar, botonModificar, botonLimpiar, botonEliminar, botonReporte;
     private JTable tabla;
     private DefaultTableModel modelo;
-    private ProductoController productoController;
-    private CategoriaController categoriaController;
+    private HotelesController hotelesController;
+    //private CategoriaController categoriaController;
 
     public ControlDeHoteles() {
         super("Hoteles");
         //falta
-        this.categoriaController = new CategoriaController();
-        this.productoController = new ProductoController();
+        //this.categoriaController = new CategoriaController();
+        this.hotelesController = new HotelesController();
 
         Container container = getContentPane();
         setLayout(null);
@@ -51,9 +53,12 @@ public class ControlDeHoteles extends JFrame {
         tabla = new JTable();
         //falta
         modelo = (DefaultTableModel) tabla.getModel();
-        modelo.addColumn("Identificador del Producto");
-        modelo.addColumn("Nombre del Producto");
-        modelo.addColumn("Descripción del Producto");
+        modelo.addColumn("idhoteles");
+        modelo.addColumn("nombre");
+        modelo.addColumn("direccion");
+        modelo.addColumn("ciudad");
+        modelo.addColumn("telefono");
+        modelo.addColumn("numeroPlazasDispo");
 
         cargarTabla();
 
@@ -103,7 +108,7 @@ public class ControlDeHoteles extends JFrame {
 //        comboCategoria.addItem("Elige una Categoría");
 
         // TODO
-        var categorias = this.categoriaController.listar();
+        var categorias = this.hotelesController.listar();
         // categorias.forEach(categoria -> comboCategoria.addItem(categoria));
 
         textoNombre.setBounds(10, 25, 265, 20);
@@ -193,7 +198,7 @@ public class ControlDeHoteles extends JFrame {
                     String nombre = (String) modelo.getValueAt(tabla.getSelectedRow(), 1);
                     String descripcion = (String) modelo.getValueAt(tabla.getSelectedRow(), 2);
 
-                    this.productoController.modificar(nombre, descripcion, id);
+                    this.hotelesController.modificar(nombre, descripcion, id);
                 }, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
     }
 
@@ -207,7 +212,7 @@ public class ControlDeHoteles extends JFrame {
                 .ifPresentOrElse(fila -> {
                     Integer id = (Integer) modelo.getValueAt(tabla.getSelectedRow(), 0);
 
-                    this.productoController.eliminar(id);
+                    this.hotelesController.eliminar(id);
 
                     modelo.removeRow(tabla.getSelectedRow());
 
@@ -216,27 +221,27 @@ public class ControlDeHoteles extends JFrame {
     }
 
     private void cargarTabla() {
-        var productos = this.productoController.listar();
-
-        try {
-            // TODO
-            // productos.forEach(producto -> modelo.addRow(new Object[] { "id", "nombre",
-            // "descripcion" }));
-        } catch (Exception e) {
-            throw e;
-        }
+    	var hoteles = this.hotelesController.listar();
+        hoteles.forEach(hotel -> modelo.addRow(
+        		new Object[] {
+        			hotel.getIdhoteles(),
+        			hotel.getNombre(),
+        			hotel.getDireccion(),
+        			hotel.getCiudad(),
+        			hotel.getTelefono(),
+        			hotel.getNumeroPlazasDispo()}));
     }
 
     private void guardar() {
         if (textoNombre.getText().isBlank() || textoDireccion.getText().isBlank()) {
-            JOptionPane.showMessageDialog(this, "Los campos Nombre y Apellido son requeridos.");
+            JOptionPane.showMessageDialog(this, "Los campos Nombre y Direccion son requeridos.");
             return;
         }
 
-        Integer cantidadInt;
+        Integer numeroPlazasDisponi;
 
         try {
-            cantidadInt = Integer.parseInt(textoCiudad.getText());
+            numeroPlazasDisponi = Integer.parseInt(textoPlazasDisponibles.getText());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, String
                     .format("El campo cantidad debe ser numérico dentro del rango %d y %d.", 0, Integer.MAX_VALUE));
@@ -244,10 +249,9 @@ public class ControlDeHoteles extends JFrame {
         }
 
         // TODO
-        var producto = new Object[] { textoNombre.getText(), textoDireccion.getText(), cantidadInt };
-        var categoria = comboCategoria.getSelectedItem();
+        var hotel = new Hoteles(textoNombre.getText(),textoDireccion.getText(),textoCiudad.getText(),textoTelefono.getText(), numeroPlazasDisponi);
 
-        this.productoController.guardar(producto);
+        this.hotelesController.guardar(hotel);
 
         JOptionPane.showMessageDialog(this, "Registrado con éxito!");
 
@@ -258,7 +262,8 @@ public class ControlDeHoteles extends JFrame {
         this.textoNombre.setText("");
         this.textoDireccion.setText("");
         this.textoCiudad.setText("");
-        this.comboCategoria.setSelectedIndex(0);
+        this.textoTelefono.setText("");
+        this.textoPlazasDisponibles.setText("");
     }
 
 }

@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.utp.jdbc.controller.CategoriaController;
-import com.utp.jdbc.controller.ProductoController;
+import com.utp.jdbc.controller.ClientesController;
 
 public class ControlDeVuelos extends JFrame {
 
@@ -30,14 +30,14 @@ public class ControlDeVuelos extends JFrame {
     private JButton botonGuardar, botonModificar, botonLimpiar, botonEliminar, botonReporte;
     private JTable tabla;
     private DefaultTableModel modelo;
-    private ProductoController productoController;
+    private ClientesController productoController;
     private CategoriaController categoriaController;
 
     public ControlDeVuelos() {
         super("Vuelos");
         //falta
         this.categoriaController = new CategoriaController();
-        this.productoController = new ProductoController();
+        this.productoController = new ClientesController();
 
         Container container = getContentPane();
         setLayout(null);
@@ -257,7 +257,7 @@ public class ControlDeVuelos extends JFrame {
         var producto = new Object[] { textoFecha.getText(), textoHora.getText(), cantidadInt };
         var categoria = comboCategoria.getSelectedItem();
 
-        this.productoController.guardar(producto);
+        //this.productoController.guardar(producto);
 
         JOptionPane.showMessageDialog(this, "Registrado con éxito!");
 
