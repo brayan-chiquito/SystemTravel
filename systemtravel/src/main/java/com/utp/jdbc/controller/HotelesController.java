@@ -17,12 +17,12 @@ public class HotelesController {
 		var factory = new ConnectionFactory();
 		this.hotelesDao = new HotelesDao(factory.recuperaConexion());
 	}
-	public void modificar(String nombre, String descripcion, Integer id) {
-		// TODO
+	public int modificar(String nombre, String direccion, String ciudad, String telefono, Integer numeroPlazasDispo, Integer idhoeteles) {
+		return hotelesDao.modificar(nombre, direccion, ciudad, telefono, numeroPlazasDispo, idhoeteles);
 	}
 
-	public void eliminar(Integer id) {
-		// TODO
+	public int eliminar(Integer id) {
+		return hotelesDao.eliminar(id);
 	}
 
 	public List<Hoteles> listar() {

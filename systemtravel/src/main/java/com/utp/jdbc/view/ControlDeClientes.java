@@ -188,7 +188,13 @@ public class ControlDeClientes extends JFrame {
                 .ifPresentOrElse(fila -> {
                     Integer id = (Integer) modelo.getValueAt(tabla.getSelectedRow(), 0);
                     String nombre = (String) modelo.getValueAt(tabla.getSelectedRow(), 1);
-                    String descripcion = (String) modelo.getValueAt(tabla.getSelectedRow(), 2);
+                    String apellido = (String) modelo.getValueAt(tabla.getSelectedRow(), 2);
+                    String direccion = (String) modelo.getValueAt(tabla.getSelectedRow(), 3);
+                    String telefono = (String) modelo.getValueAt(tabla.getSelectedRow(), 4);
+                    int cantidadEliminada;
+                    cantidadEliminada = this.clientesController.modificar(nombre, apellido, direccion, telefono, id);
+					
+					JOptionPane.showMessageDialog(this, cantidadEliminada + " item actualizado con éxito!");
 //********************
                     //this.productoController.modificar(nombre, descripcion, id);
                 }, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
@@ -204,7 +210,7 @@ public class ControlDeClientes extends JFrame {
                 .ifPresentOrElse(fila -> {
                     Integer id = (Integer) modelo.getValueAt(tabla.getSelectedRow(), 0);
 //********************
-                   //this.productoController.eliminar(id);
+                   this.clientesController.eliminar(id);
 
                     modelo.removeRow(tabla.getSelectedRow());
 

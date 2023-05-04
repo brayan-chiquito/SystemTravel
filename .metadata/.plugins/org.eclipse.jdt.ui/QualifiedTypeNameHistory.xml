@@ -20,11 +20,25 @@
     <fullyQualifiedTypeName name="java.sql.ResultSet"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="java.lang.Object"/>
-    <fullyQualifiedTypeName name="java.lang.String"/>
-    <fullyQualifiedTypeName name="java.lang.Integer"/>
     <fullyQualifiedTypeName name="com.utp.jdbc.modelo.Clientes"/>
     <fullyQualifiedTypeName name="com.utp.jdbc.dao.HotelesDao"/>
     <fullyQualifiedTypeName name="com.utp.jdbc.controller.HotelesController"/>
     <fullyQualifiedTypeName name="com.utp.jdbc.view.ControlDeHoteles"/>
     <fullyQualifiedTypeName name="com.utp.jdbc.modelo.Hoteles"/>
+    <fullyQualifiedTypeName name="com.utp.jdbc.dao.SucursalesDao"/>
+    <fullyQualifiedTypeName name="com.utp.jdbc.controller.SucursalesController"/>
+    <fullyQualifiedTypeName name="com.utp.jdbc.modelo.Sucursales"/>
+    <fullyQualifiedTypeName name="java.util.Timer"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="com.utp.jdbc.dao.VuelosDao"/>
+    <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="java.sql.Time"/>
+    <fullyQualifiedTypeName name="com.google.protobuf.TextFormat.ParseException"/>
+    <fullyQualifiedTypeName name="com.utp.jdbc.controller.VuelosController"/>
+    <fullyQualifiedTypeName name="com.utp.jdbc.modelo.Vuelos"/>
+    <fullyQualifiedTypeName name="java.lang.Integer"/>
+    <fullyQualifiedTypeName name="java.time.format.DateTimeFormatter"/>
+    <fullyQualifiedTypeName name="java.time.LocalTime"/>
+    <fullyQualifiedTypeName name="java.time.LocalDate"/>
 </qualifiedTypeNameHistroy>

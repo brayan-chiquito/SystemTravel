@@ -9,22 +9,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.utp.jdbc.modelo.Clientes;
+import com.utp.jdbc.modelo.Sucursales;
 
-public class ClientesDao {
+public class SucursalesDao {
 	final private Connection con;
-	public ClientesDao(Connection con) {
+	public SucursalesDao(Connection con) {
 		this.con = con;
 	}
 	
-	public void guardar(Clientes clientes) {
+	public void guardar(Sucursales sucursales) {
 		try{
 			con.setAutoCommit(false);	
 			//deshabilitar la tranasacion en automatico y dejarla en manual
 			
-			PreparedStatement statement = con.prepareStatement("INSERT INTO CLIENTES(nombre, apellido, direccion, telefono)"
-					+ "VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement statement = con.prepareStatement("INSERT INTO SUCURSALES(direccion, telefono)"
+					+ "VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
 			try(statement){
-				ejecutarRejistro(clientes, statement);		
+				ejecutarRejistro(sucursales, statement);		
 				//se envian datos para el nuevo registro y el statement	
 				con.commit();		
 				//control de trasaccion en caso de sea correcta
@@ -40,29 +41,27 @@ public class ClientesDao {
 	
 	}
 	
-	private void ejecutarRejistro(Clientes clientes, PreparedStatement statement)		//se crea funcion para generar varios registros 
+	private void ejecutarRejistro(Sucursales sucursales, PreparedStatement statement)		//se crea funcion para generar varios registros 
 			throws SQLException {
-		statement.setString(1, clientes.getNombre());
-		statement.setString(2, clientes.getApellido());
-		statement.setString(3, clientes.getDireccion());
-		statement.setString(4, clientes.getTelefono());
+		statement.setString(1, sucursales.getDireccion());
+		statement.setString(2, sucursales.getTelefono());
     	
     	statement.execute();
     	final ResultSet resultSet = statement.getGeneratedKeys();
     	try(resultSet){
 	    	while(resultSet.next()) {
-	    		clientes.setCodigo(resultSet.getInt(1));
-	    		System.out.println(String.format("Fue insertado el producto %s", clientes));
+	    		sucursales.setIdsucursales(resultSet.getInt(1));
+	    		System.out.println(String.format("Fue insertado el producto %s", sucursales));
 	    	}
     	}
 	}
 
-	public List<Clientes> listar() {
-		List<Clientes> resultado = new ArrayList<>();
+	public List<Sucursales> listar() {
+		List<Sucursales> resultado = new ArrayList<>();
 		
 		try{
 		
-			final PreparedStatement statement = con.prepareStatement("SELECT CODIGO, NOMBRE, APELLIDO, DIRECCION, TELEFONO FROM CLIENTES");
+			final PreparedStatement statement = con.prepareStatement("SELECT IDSUCURSALES, DIRECCION, TELEFONO FROM SUCURSALES");
 			
 			try(statement){
 				statement.execute();
@@ -70,9 +69,7 @@ public class ClientesDao {
 				final ResultSet resultSet = statement.getResultSet();
 				
 				while(resultSet.next()) {
-					Clientes fila = new Clientes(resultSet.getInt("CODIGO"),
-							resultSet.getString("NOMBRE"),
-							resultSet.getString("APELLIDO"),
+					Sucursales fila = new Sucursales(resultSet.getInt("IDSUCURSALES"),
 							resultSet.getString("DIRECCION"),
 							resultSet.getString("TELEFONO"));
 					resultado.add(fila);
@@ -87,7 +84,7 @@ public class ClientesDao {
 
 	public int eliminar(Integer id) {
 		try{
-			final PreparedStatement statement = con.prepareStatement("DELETE FROM CLIENTES WHERE CODIGO = ?");
+			final PreparedStatement statement = con.prepareStatement("DELETE FROM SUCURSALES WHERE IDSUCURSALES = ?");
 			try(statement){
 				statement.setInt(1, id);
 				statement.execute();
@@ -99,15 +96,13 @@ public class ClientesDao {
 		}
 	}
 
-	public int modificar(String nombre, String apellido, String direccion, String telefono, Integer id) {
+	public int modificar(String direccion, String telefono, Integer idsucursal) {
 		try{
-			final PreparedStatement statement = con.prepareStatement("UPDATE CLIENTES SET NOMBRE =  ?, APELLIDO = ?, DIRECCION = ? , TELEFONO = ? WHERE CODIGO = ?");
+			final PreparedStatement statement = con.prepareStatement("UPDATE SUCURSALES SET DIRECCION =  ?, TELEFONO = ? WHERE IDSUCURSALES = ?");
 			try(statement){
-				statement.setString(1, nombre);
-				statement.setString(2, apellido);
-				statement.setString(3, direccion);
-				statement.setString(4, telefono);
-				statement.setInt(5, id);
+				statement.setString(1, direccion);
+				statement.setString(2, telefono);
+				statement.setInt(3, idsucursal);
 
 				statement.execute();
 				int updateCount = statement.getUpdateCount();

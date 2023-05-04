@@ -15,12 +15,12 @@ public class ClientesController {
 		var factory = new ConnectionFactory();
 		this.clientesDao = new ClientesDao(factory.recuperaConexion());
 	}
-	public void modificar(String nombre, String descripcion, Integer id) {
-		// TODO
+	public int modificar(String nombre, String apellido, String direccion, String telefono, Integer id) {
+		return clientesDao.modificar(nombre, apellido, direccion, telefono, id);
 	}
 
-	public void eliminar(Integer id) {
-		// TODO
+	public int eliminar(Integer id) {
+		return clientesDao.eliminar(id);
 	}
 
 	public List<Clientes> listar() {

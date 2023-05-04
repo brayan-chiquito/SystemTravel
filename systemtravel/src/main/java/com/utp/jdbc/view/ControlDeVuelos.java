@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import javax.swing.JButton;
@@ -17,6 +20,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.utp.jdbc.controller.CategoriaController;
 import com.utp.jdbc.controller.ClientesController;
+import com.utp.jdbc.controller.VuelosController;
+import com.utp.jdbc.modelo.Vuelos;
 
 public class ControlDeVuelos extends JFrame {
 
@@ -30,14 +35,14 @@ public class ControlDeVuelos extends JFrame {
     private JButton botonGuardar, botonModificar, botonLimpiar, botonEliminar, botonReporte;
     private JTable tabla;
     private DefaultTableModel modelo;
-    private ClientesController productoController;
+    private VuelosController vuelosController;
     private CategoriaController categoriaController;
 
     public ControlDeVuelos() {
         super("Vuelos");
         //falta
-        this.categoriaController = new CategoriaController();
-        this.productoController = new ClientesController();
+        //this.categoriaController = new CategoriaController();
+        this.vuelosController = new VuelosController();
 
         Container container = getContentPane();
         setLayout(null);
@@ -53,9 +58,13 @@ public class ControlDeVuelos extends JFrame {
         tabla = new JTable();
         //falta
         modelo = (DefaultTableModel) tabla.getModel();
-        modelo.addColumn("Identificador del Producto");
-        modelo.addColumn("Nombre del Producto");
-        modelo.addColumn("Descripción del Producto");
+        modelo.addColumn("idvuelos");
+        modelo.addColumn("fecha");
+        modelo.addColumn("hora");
+        modelo.addColumn("origuen");
+        modelo.addColumn("destino");
+        modelo.addColumn("plazastoatles");
+        modelo.addColumn("plazasturistas");
 
         cargarTabla();
 
@@ -79,8 +88,8 @@ public class ControlDeVuelos extends JFrame {
     }
 
     private void configurarCamposDelFormulario(Container container) {
-        labelFecha = new JLabel("Fecha");
-        labelHora = new JLabel("Hora");
+        labelFecha = new JLabel("Fecha(yyyy-mm-dd)");
+        labelHora = new JLabel("Hora(hh:mm:ss)");
         labelOrigen = new JLabel("Origen");
         labelDestino = new JLabel("Destino");
         labelPlazasDisponibles = new JLabel("Plazas disponibles");
@@ -110,7 +119,7 @@ public class ControlDeVuelos extends JFrame {
 //        comboCategoria.addItem("Elige una Categoría");
 
         // TODO
-        var categorias = this.categoriaController.listar();
+        //var categorias = this.categoriaController.listar();
         // categorias.forEach(categoria -> comboCategoria.addItem(categoria));
 
         textoFecha.setBounds(10, 25, 265, 20);
@@ -199,11 +208,18 @@ public class ControlDeVuelos extends JFrame {
 
         Optional.ofNullable(modelo.getValueAt(tabla.getSelectedRow(), tabla.getSelectedColumn()))
                 .ifPresentOrElse(fila -> {
-                    Integer id = (Integer) modelo.getValueAt(tabla.getSelectedRow(), 0);
-                    String nombre = (String) modelo.getValueAt(tabla.getSelectedRow(), 1);
-                    String descripcion = (String) modelo.getValueAt(tabla.getSelectedRow(), 2);
+                	Integer idvuelo = (Integer) modelo.getValueAt(tabla.getSelectedRow(), 0);
 
-                    this.productoController.modificar(nombre, descripcion, id);
+                    String origen = (String) modelo.getValueAt(tabla.getSelectedRow(), 3);
+                    String destino = (String) modelo.getValueAt(tabla.getSelectedRow(), 4);
+                    
+                    Integer plazastotales = Integer.valueOf(modelo.getValueAt(tabla.getSelectedRow(), 5).toString());
+                    Integer plazasturista = Integer.valueOf(modelo.getValueAt(tabla.getSelectedRow(), 6).toString());
+                    
+                    int cantidadEliminada;
+					cantidadEliminada = this.vuelosController.modificar(origen, destino, plazastotales, plazasturista, idvuelo);
+					
+					JOptionPane.showMessageDialog(this, cantidadEliminada + " item actualizado con éxito!");
                 }, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
     }
 
@@ -217,7 +233,7 @@ public class ControlDeVuelos extends JFrame {
                 .ifPresentOrElse(fila -> {
                     Integer id = (Integer) modelo.getValueAt(tabla.getSelectedRow(), 0);
 
-                    this.productoController.eliminar(id);
+                    this.vuelosController.eliminar(id);
 
                     modelo.removeRow(tabla.getSelectedRow());
 
@@ -226,27 +242,30 @@ public class ControlDeVuelos extends JFrame {
     }
 
     private void cargarTabla() {
-        var productos = this.productoController.listar();
-
-        try {
-            // TODO
-            // productos.forEach(producto -> modelo.addRow(new Object[] { "id", "nombre",
-            // "descripcion" }));
-        } catch (Exception e) {
-            throw e;
-        }
+    	var vuelos = this.vuelosController.listar();
+        vuelos.forEach(vuelo -> modelo.addRow(
+        		new Object[] {
+        			vuelo.getIdvuelos(),
+        			vuelo.getFecha(),
+        			vuelo.getHora(),
+        			vuelo.getOrigen(),
+        			vuelo.getDestino(),
+        			vuelo.getPlazasTotales(),
+        			vuelo.getPlazasTurista()}));
     }
 
     private void guardar() {
         if (textoFecha.getText().isBlank() || textoHora.getText().isBlank()) {
-            JOptionPane.showMessageDialog(this, "Los campos Nombre y Apellido son requeridos.");
+            JOptionPane.showMessageDialog(this, "Los campos Fecha y Hora son requeridos.");
             return;
         }
 
-        Integer cantidadInt;
+        Integer plazasdis;
+        Integer plazasturis;
 
         try {
-            cantidadInt = Integer.parseInt(textoOrigen.getText());
+            plazasdis = Integer.parseInt(textoPlazasDisponibles.getText());
+            plazasturis = Integer.parseInt(textoPlazasTurista.getText());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, String
                     .format("El campo cantidad debe ser numérico dentro del rango %d y %d.", 0, Integer.MAX_VALUE));
@@ -254,10 +273,13 @@ public class ControlDeVuelos extends JFrame {
         }
 
         // TODO
-        var producto = new Object[] { textoFecha.getText(), textoHora.getText(), cantidadInt };
-        var categoria = comboCategoria.getSelectedItem();
+        
+        LocalDate fecha = LocalDate.parse(textoFecha.getText());
+        LocalTime hora = LocalTime.parse(textoHora.getText());
+        var vuelos = new Vuelos(fecha, hora, textoOrigen.getText(), textoDestino.getText(), plazasdis, plazasturis);
+        //var categoria = comboCategoria.getSelectedItem();
 
-        //this.productoController.guardar(producto);
+        this.vuelosController.guardar(vuelos);
 
         JOptionPane.showMessageDialog(this, "Registrado con éxito!");
 
@@ -268,7 +290,9 @@ public class ControlDeVuelos extends JFrame {
         this.textoFecha.setText("");
         this.textoHora.setText("");
         this.textoOrigen.setText("");
-        this.comboCategoria.setSelectedIndex(0);
+        this.textoDestino.setText("");
+        this.textoPlazasDisponibles.setText("");
+        this.textoPlazasTurista.setText("");
     }
 
 }

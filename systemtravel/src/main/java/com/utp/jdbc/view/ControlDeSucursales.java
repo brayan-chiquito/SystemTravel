@@ -17,6 +17,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.utp.jdbc.controller.CategoriaController;
 import com.utp.jdbc.controller.ClientesController;
+import com.utp.jdbc.controller.SucursalesController;
+import com.utp.jdbc.modelo.Sucursales;
 
 public class ControlDeSucursales extends JFrame {
 
@@ -28,14 +30,14 @@ public class ControlDeSucursales extends JFrame {
     private JButton botonGuardar, botonModificar, botonLimpiar, botonEliminar, botonReporte;
     private JTable tabla;
     private DefaultTableModel modelo;
-    private ClientesController productoController;
+    private SucursalesController sucursalesController;
     private CategoriaController categoriaController;
 
     public ControlDeSucursales() {
         super("Sucursales");
         //falta
-        this.categoriaController = new CategoriaController();
-        this.productoController = new ClientesController();
+        //this.categoriaController = new CategoriaController();
+        this.sucursalesController = new SucursalesController();
 
         Container container = getContentPane();
         setLayout(null);
@@ -51,9 +53,9 @@ public class ControlDeSucursales extends JFrame {
         tabla = new JTable();
 //falta
         modelo = (DefaultTableModel) tabla.getModel();
-        modelo.addColumn("Identificador del Producto");
-        modelo.addColumn("Nombre del Producto");
-        modelo.addColumn("Descripción del Producto");
+        modelo.addColumn("idsucursales");
+        modelo.addColumn("direccion");
+        modelo.addColumn("telefono");
 
         cargarTabla();
 
@@ -92,7 +94,7 @@ public class ControlDeSucursales extends JFrame {
 //        comboCategoria.addItem("Elige una Categoría");
 
         // TODO
-        var categorias = this.categoriaController.listar();
+        //var categorias = this.categoriaController.listar();
         // categorias.forEach(categoria -> comboCategoria.addItem(categoria));
 
         textoDireccion.setBounds(10, 25, 265, 20);
@@ -169,11 +171,13 @@ public class ControlDeSucursales extends JFrame {
 
         Optional.ofNullable(modelo.getValueAt(tabla.getSelectedRow(), tabla.getSelectedColumn()))
                 .ifPresentOrElse(fila -> {
-                    Integer id = (Integer) modelo.getValueAt(tabla.getSelectedRow(), 0);
-                    String nombre = (String) modelo.getValueAt(tabla.getSelectedRow(), 1);
-                    String descripcion = (String) modelo.getValueAt(tabla.getSelectedRow(), 2);
-
-                    this.productoController.modificar(nombre, descripcion, id);
+                    Integer idsucursal = (Integer) modelo.getValueAt(tabla.getSelectedRow(), 0);
+                    String direccion= (String) modelo.getValueAt(tabla.getSelectedRow(), 1);
+                    String telefono = (String) modelo.getValueAt(tabla.getSelectedRow(), 2);
+                    int cantidadEliminada;
+					cantidadEliminada = this.sucursalesController.modificar(direccion, telefono, idsucursal);
+					
+					JOptionPane.showMessageDialog(this, cantidadEliminada + " item actualizado con éxito!");
                 }, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
     }
 
@@ -187,7 +191,7 @@ public class ControlDeSucursales extends JFrame {
                 .ifPresentOrElse(fila -> {
                     Integer id = (Integer) modelo.getValueAt(tabla.getSelectedRow(), 0);
 
-                    this.productoController.eliminar(id);
+                    this.sucursalesController.eliminar(id);
 
                     modelo.removeRow(tabla.getSelectedRow());
 
@@ -196,38 +200,27 @@ public class ControlDeSucursales extends JFrame {
     }
 
     private void cargarTabla() {
-        var productos = this.productoController.listar();
-
-        try {
-            // TODO
-            // productos.forEach(producto -> modelo.addRow(new Object[] { "id", "nombre",
-            // "descripcion" }));
-        } catch (Exception e) {
-            throw e;
-        }
+    	var sucursales = this.sucursalesController.listar();
+        sucursales.forEach(sucursal -> modelo.addRow(
+        		new Object[] {
+        			sucursal.getIdsucursales(),
+        			sucursal.getDireccion(),
+        			sucursal.getTelefono()}));
     }
 
     private void guardar() {
         if (textoDireccion.getText().isBlank() || textoTelefono.getText().isBlank()) {
-            JOptionPane.showMessageDialog(this, "Los campos Nombre y Apellido son requeridos.");
+            JOptionPane.showMessageDialog(this, "Los campos Direccion y Telefono son requeridos.");
             return;
         }
 
-        Integer cantidadInt;
-
-        try {
-            cantidadInt = Integer.parseInt(textoDireccion.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, String
-                    .format("El campo cantidad debe ser numérico dentro del rango %d y %d.", 0, Integer.MAX_VALUE));
-            return;
-        }
+        
 
         // TODO
-        var producto = new Object[] { textoDireccion.getText(), textoTelefono.getText(), cantidadInt };
-        var categoria = comboCategoria.getSelectedItem();
+        var sucursal = new Sucursales(textoDireccion.getText(), textoTelefono.getText());
+        //var categoria = comboCategoria.getSelectedItem();
 
-        //this.productoController.guardar(producto);
+        this.sucursalesController.guardar(sucursal);
 
         JOptionPane.showMessageDialog(this, "Registrado con éxito!");
 
@@ -235,10 +228,8 @@ public class ControlDeSucursales extends JFrame {
     }
 
     private void limpiarFormulario() {
-        this.textoDireccion.setText("");
+    	this.textoDireccion.setText("");
         this.textoTelefono.setText("");
-        this.textoDireccion.setText("");
-        this.comboCategoria.setSelectedIndex(0);
     }
 
 }

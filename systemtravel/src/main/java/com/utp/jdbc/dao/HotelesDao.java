@@ -87,6 +87,41 @@ public class HotelesDao {
 		}
 		
 	}
+
+	public int eliminar(Integer id) {
+		try{
+			final PreparedStatement statement = con.prepareStatement("DELETE FROM HOTELES WHERE IDHOTELES = ?");
+			try(statement){
+				statement.setInt(1, id);
+				statement.execute();
+				int updateCount = statement.getUpdateCount();
+				return updateCount;
+			}
+		}catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public int modificar(String nombre, String direccion, String ciudad, String telefono, Integer numeroPlazasDispo,
+			Integer idhoteles) {
+		try{
+			final PreparedStatement statement = con.prepareStatement("UPDATE HOTELES SET NOMBRE =  ?, DIRECCION = ?, CIUDAD = ?, TELEFONO = ?, NUMEROPLAZASDISPO = ? WHERE IDHOTELES = ?");
+			try(statement){
+				statement.setString(1, nombre);
+				statement.setString(2, direccion);
+				statement.setString(3, ciudad);
+				statement.setString(4, telefono);
+				statement.setInt(5, numeroPlazasDispo);
+				statement.setInt(6, idhoteles);
+
+				statement.execute();
+				int updateCount = statement.getUpdateCount();
+				return updateCount;
+			}
+		}catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	
 }
 

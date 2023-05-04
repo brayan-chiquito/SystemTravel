@@ -194,11 +194,16 @@ public class ControlDeHoteles extends JFrame {
 
         Optional.ofNullable(modelo.getValueAt(tabla.getSelectedRow(), tabla.getSelectedColumn()))
                 .ifPresentOrElse(fila -> {
-                    Integer id = (Integer) modelo.getValueAt(tabla.getSelectedRow(), 0);
+                    Integer idhoteles = (Integer) modelo.getValueAt(tabla.getSelectedRow(), 0);
                     String nombre = (String) modelo.getValueAt(tabla.getSelectedRow(), 1);
-                    String descripcion = (String) modelo.getValueAt(tabla.getSelectedRow(), 2);
-
-                    this.hotelesController.modificar(nombre, descripcion, id);
+                    String direccion = (String) modelo.getValueAt(tabla.getSelectedRow(), 2);
+                    String ciudad = (String) modelo.getValueAt(tabla.getSelectedRow(), 3);
+                    String telefono = (String) modelo.getValueAt(tabla.getSelectedRow(), 4);
+                    Integer numeroPlazasDispo = Integer.valueOf(modelo.getValueAt(tabla.getSelectedRow(), 5).toString());
+                    int cantidadEliminada;
+					cantidadEliminada = this.hotelesController.modificar(nombre, direccion, ciudad, telefono, numeroPlazasDispo, idhoteles);
+					
+					JOptionPane.showMessageDialog(this, cantidadEliminada + " item actualizado con éxito!");
                 }, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
     }
 
