@@ -1088,3 +1088,29 @@
 2023-05-03 02:24:44,039 [Worker-1: Launching ControlDeStockMain] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
 2023-05-03 02:24:44,040 [Worker-1: Launching ControlDeStockMain] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\laura\Desktop\SystemTravel_V0.1\SystemTravel\systemtravel\src\test\resources
 2023-05-03 02:28:51,121 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2023-05-07 19:14:50,809 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2023-05-07 19:15:41,657 [Worker-13: Launching ControlDeStockMain] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2023-05-07 19:15:41,658 [Worker-13: Launching ControlDeStockMain] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\laura\Desktop\SystemTravel_V0.1\SystemTravel\systemtravel\src\main\resources
+2023-05-07 19:15:41,666 [Worker-13: Launching ControlDeStockMain] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2023-05-07 19:15:41,667 [Worker-13: Launching ControlDeStockMain] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\laura\Desktop\SystemTravel_V0.1\SystemTravel\systemtravel\src\test\resources
+2023-05-07 19:38:25,512 [Worker-16: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2023-05-07 19:38:25,517 [Worker-16: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\laura\Desktop\SystemTravel_V0.1\SystemTravel\systemtravel\src\main\resources
+2023-05-07 19:38:25,520 [Worker-16: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2023-05-07 19:38:25,521 [Worker-16: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\laura\Desktop\SystemTravel_V0.1\SystemTravel\systemtravel\src\test\resources
+2023-05-07 19:38:55,113 [Worker-14: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2023-05-07 19:38:55,114 [Worker-14: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\laura\Desktop\SystemTravel_V0.1\SystemTravel\systemtravel\src\main\resources
+2023-05-07 19:38:55,117 [Worker-14: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2023-05-07 19:38:55,118 [Worker-14: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\laura\Desktop\SystemTravel_V0.1\SystemTravel\systemtravel\src\test\resources
+2023-05-07 19:41:37,957 [Worker-14: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2023-05-07 19:41:37,958 [Worker-14: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\laura\Desktop\SystemTravel_V0.1\SystemTravel\systemtravel\src\main\resources
+2023-05-07 19:41:37,960 [Worker-14: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2023-05-07 19:41:37,961 [Worker-14: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\laura\Desktop\SystemTravel_V0.1\SystemTravel\systemtravel\src\test\resources
+2023-05-07 19:41:51,219 [Worker-18: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2023-05-07 19:41:51,220 [Worker-18: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\laura\Desktop\SystemTravel_V0.1\SystemTravel\systemtravel\src\main\resources
+2023-05-07 19:41:51,224 [Worker-18: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2023-05-07 19:41:51,225 [Worker-18: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\laura\Desktop\SystemTravel_V0.1\SystemTravel\systemtravel\src\test\resources
+2023-05-07 19:42:22,688 [Worker-17: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2023-05-07 19:42:22,689 [Worker-17: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\laura\Desktop\SystemTravel_V0.1\SystemTravel\systemtravel\src\main\resources
+2023-05-07 19:42:22,692 [Worker-17: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2023-05-07 19:42:22,693 [Worker-17: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\laura\Desktop\SystemTravel_V0.1\SystemTravel\systemtravel\src\test\resources
+2023-05-07 20:33:48,882 [Worker-0: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.

@@ -15,8 +15,8 @@ public class ClientesController {
 		var factory = new ConnectionFactory();
 		this.clientesDao = new ClientesDao(factory.recuperaConexion());
 	}
-	public int modificar(String nombre, String apellido, String direccion, String telefono, Integer id) {
-		return clientesDao.modificar(nombre, apellido, direccion, telefono, id);
+	public int modificar(String direccion, String telefono, Integer id) {
+		return clientesDao.modificar(direccion, telefono, id);
 	}
 
 	public int eliminar(Integer id) {

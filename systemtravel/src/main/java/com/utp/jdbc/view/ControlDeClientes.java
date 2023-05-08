@@ -187,12 +187,10 @@ public class ControlDeClientes extends JFrame {
         Optional.ofNullable(modelo.getValueAt(tabla.getSelectedRow(), tabla.getSelectedColumn()))
                 .ifPresentOrElse(fila -> {
                     Integer id = (Integer) modelo.getValueAt(tabla.getSelectedRow(), 0);
-                    String nombre = (String) modelo.getValueAt(tabla.getSelectedRow(), 1);
-                    String apellido = (String) modelo.getValueAt(tabla.getSelectedRow(), 2);
                     String direccion = (String) modelo.getValueAt(tabla.getSelectedRow(), 3);
                     String telefono = (String) modelo.getValueAt(tabla.getSelectedRow(), 4);
                     int cantidadEliminada;
-                    cantidadEliminada = this.clientesController.modificar(nombre, apellido, direccion, telefono, id);
+                    cantidadEliminada = this.clientesController.modificar(direccion, telefono, id);
 					
 					JOptionPane.showMessageDialog(this, cantidadEliminada + " item actualizado con éxito!");
 //********************

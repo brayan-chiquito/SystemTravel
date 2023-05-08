@@ -99,15 +99,13 @@ public class ClientesDao {
 		}
 	}
 
-	public int modificar(String nombre, String apellido, String direccion, String telefono, Integer id) {
+	public int modificar(String direccion, String telefono, Integer id) {
 		try{
-			final PreparedStatement statement = con.prepareStatement("UPDATE CLIENTES SET NOMBRE =  ?, APELLIDO = ?, DIRECCION = ? , TELEFONO = ? WHERE CODIGO = ?");
+			final PreparedStatement statement = con.prepareStatement("UPDATE CLIENTES SET DIRECCION = ? , TELEFONO = ? WHERE CODIGO = ?");
 			try(statement){
-				statement.setString(1, nombre);
-				statement.setString(2, apellido);
-				statement.setString(3, direccion);
-				statement.setString(4, telefono);
-				statement.setInt(5, id);
+				statement.setString(1, direccion);
+				statement.setString(2, telefono);
+				statement.setInt(3, id);
 
 				statement.execute();
 				int updateCount = statement.getUpdateCount();
