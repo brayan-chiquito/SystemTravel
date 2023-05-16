@@ -32,5 +32,6 @@ public class HotelesController {
     public void guardar(Hoteles hoteles) {
 		hotelesDao.guardar(hoteles);
 	}
+    
 
 }

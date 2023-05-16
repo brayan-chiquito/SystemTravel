@@ -26,6 +26,11 @@ public class Hoteles {
 		this.numeroPlazasDispo = numeroPlazasDispo;
 	}
 
+	public Hoteles(int id, String nombre) {
+		this.idhoteles = id;
+		this.nombre = nombre;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -76,9 +81,8 @@ public class Hoteles {
 
 	@Override
 	public String toString() {
-		return "Hoteles [idhoteles=" + idhoteles + ", nombre=" + nombre + ", direccion=" + direccion + ", ciudad="
-				+ ciudad + ", telefono=" + telefono + ", numeroPlazasDispo=" + numeroPlazasDispo + "]";
+		return this.nombre;
 	}
-	
+
 	
 }

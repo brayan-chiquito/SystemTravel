@@ -27,7 +27,8 @@ public class ClientesController {
 		return clientesDao.listar();
 	}
 
-    public void guardar(Clientes clientes) {
+    public void guardar(Clientes clientes, Integer idHotel) {
+    	clientes.setHotelId(idHotel);
 		clientesDao.guardar(clientes);
 	}
 

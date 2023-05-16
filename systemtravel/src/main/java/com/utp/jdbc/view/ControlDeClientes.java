@@ -17,25 +17,27 @@ import javax.swing.table.DefaultTableModel;
 
 import com.utp.jdbc.controller.CategoriaController;
 import com.utp.jdbc.controller.ClientesController;
+import com.utp.jdbc.controller.HotelesController;
 import com.utp.jdbc.modelo.Clientes;
+import com.utp.jdbc.modelo.Hoteles;
 
 public class ControlDeClientes extends JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    private JLabel labelNombre, labelApellido, labelDireccion, labelTelefono;
+    private JLabel labelNombre, labelApellido, labelDireccion, labelTelefono, labelHoteles;
     private JTextField textoNombre, textoApellido, textoDireccion, textoTelefono;
-    private JComboBox<Object> comboCategoria;
+    private JComboBox<Hoteles> comboHotel;
     private JButton botonGuardar, botonModificar, botonLimpiar, botonEliminar, botonReporte;
     private JTable tabla;
     private DefaultTableModel modelo;
     private ClientesController clientesController;
-    private CategoriaController categoriaController;
+    private HotelesController hotelesController;
 
     public ControlDeClientes() {
         super("Clientes");
         //falta
-        this.categoriaController = new CategoriaController();
+        this.hotelesController = new HotelesController();
         this.clientesController = new ClientesController();
 
         Container container = getContentPane();
@@ -85,31 +87,36 @@ public class ControlDeClientes extends JFrame {
         labelApellido = new JLabel("Apellido");
         labelDireccion = new JLabel("Direccion");
         labelTelefono = new JLabel("Telefono");
+        labelHoteles = new JLabel("Hoteles");
+        
 
         labelNombre.setBounds(10, 10, 240, 15);
         labelApellido.setBounds(10, 50, 240, 15);
         labelDireccion.setBounds(10, 90, 240, 15);
         labelTelefono.setBounds(10, 130, 240, 15);
+        labelHoteles.setBounds(300, 10, 240, 15);
 
         labelNombre.setForeground(Color.BLACK);
         labelApellido.setForeground(Color.BLACK);
         labelTelefono.setForeground(Color.BLACK);
+        labelHoteles.setForeground(Color.BLACK);
 
         textoNombre = new JTextField();
         textoApellido = new JTextField();
         textoDireccion = new JTextField();
         textoTelefono= new JTextField();
-//        comboCategoria = new JComboBox<>();
-//        comboCategoria.addItem("Elige una Categoría");
+        comboHotel = new JComboBox<>();
+        comboHotel.addItem(new Hoteles(0,"elije un hotel"));
 
         // TODO
-        var categorias = this.categoriaController.listar();
-        // categorias.forEach(categoria -> comboCategoria.addItem(categoria));
+        var hoteles = this.hotelesController.listar();
+        hoteles.forEach(hotel -> comboHotel.addItem(hotel));
 
         textoNombre.setBounds(10, 25, 265, 20);
         textoApellido.setBounds(10, 65, 265, 20);
         textoDireccion.setBounds(10, 105, 265, 20);
         textoTelefono.setBounds(10, 145, 265, 20);
+        comboHotel.setBounds(300, 25, 265, 20);
 
         botonGuardar = new JButton("Guardar");
         botonLimpiar = new JButton("Limpiar");
@@ -120,10 +127,12 @@ public class ControlDeClientes extends JFrame {
         container.add(labelApellido);
         container.add(labelDireccion);
         container.add(labelTelefono);
+        container.add(labelHoteles);
         container.add(textoNombre);
         container.add(textoApellido);
         container.add(textoDireccion);
         container.add(textoTelefono);
+        container.add(comboHotel);
         container.add(botonGuardar);
         container.add(botonLimpiar);
     }
@@ -245,9 +254,9 @@ public class ControlDeClientes extends JFrame {
 
         // TODO
         var cliente = new Clientes(textoNombre.getText(),textoApellido.getText(),textoDireccion.getText(),textoTelefono.getText());
-        //var categoria = comboCategoria.getSelectedItem();
+        var hotel = (Hoteles)comboHotel.getSelectedItem();
 
-        this.clientesController.guardar(cliente);
+        this.clientesController.guardar(cliente, hotel.getIdhoteles());
 
         JOptionPane.showMessageDialog(this, "Registrado con éxito!");
 
@@ -259,6 +268,7 @@ public class ControlDeClientes extends JFrame {
         this.textoApellido.setText("");
         this.textoDireccion.setText("");
         this.textoTelefono.setText("");
+        this.comboHotel.setSelectedIndex(0);
     }
 
 }
