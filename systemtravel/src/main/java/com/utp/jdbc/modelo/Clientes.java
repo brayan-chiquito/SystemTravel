@@ -7,6 +7,7 @@ public class Clientes {
 	private String direccion;
 	private String telefono;
 	private Integer hotelId;
+	private Integer vueloId;
 	
 	public Clientes(String nombre, String apellido, String direccion, String telefono) {
 		this.nombre = nombre;
@@ -58,10 +59,18 @@ public class Clientes {
 	public void setHotelId(Integer hotelId) {
 		this.hotelId = hotelId;
 	}
+	public Integer getVueloId() {
+		return vueloId;
+	}
+	public void setVueloId(Integer vueloId) {
+		this.vueloId = vueloId;
+	}
 	@Override
 	public String toString() {
 		return "Clientes [codigo=" + codigo + ", nombre=" + nombre + ", apellido=" + apellido + ", direccion="
-				+ direccion + ", telefono=" + telefono + ", hotelId=" + hotelId + "]";
+				+ direccion + ", telefono=" + telefono + ", hotelId=" + hotelId + ", vueloId=" + vueloId + "]";
 	}
+	
+	
 	
 }

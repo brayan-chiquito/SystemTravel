@@ -21,8 +21,8 @@ public class ClientesDao {
 			con.setAutoCommit(false);	
 			//deshabilitar la tranasacion en automatico y dejarla en manual
 			
-			PreparedStatement statement = con.prepareStatement("INSERT INTO CLIENTES(nombre, apellido, direccion, telefono, hotel_id)"
-					+ "VALUES(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement statement = con.prepareStatement("INSERT INTO CLIENTES(nombre, apellido, direccion, telefono, hotel_id, vuelos_id)"
+					+ "VALUES(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			try(statement){
 				ejecutarRejistro(clientes, statement);		
 				//se envian datos para el nuevo registro y el statement	
@@ -47,6 +47,7 @@ public class ClientesDao {
 		statement.setString(3, clientes.getDireccion());
 		statement.setString(4, clientes.getTelefono());
 		statement.setInt(5, clientes.getHotelId());
+		statement.setInt(6, clientes.getVueloId());
     	
     	statement.execute();
     	final ResultSet resultSet = statement.getGeneratedKeys();

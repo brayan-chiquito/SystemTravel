@@ -32,6 +32,10 @@ public class Vuelos {
 		this.plazasTotales = plazasTotales;
 		this.plazasTurista = plazasTurista;
 	}
+	
+	public Vuelos(Integer idvuelos) {
+		this.idvuelos = idvuelos;
+	}
 
 	public LocalDate getFecha() {
 		return fecha;
@@ -91,11 +95,10 @@ public class Vuelos {
 
 	@Override
 	public String toString() {
-		return "Vuelos [idvuelos=" + idvuelos + ", fecha=" + fecha + ", hora=" + hora + ", origen=" + origen
-				+ ", destino=" + destino + ", plazasTotales=" + plazasTotales + ", plazasTurista=" + plazasTurista
-				+ "]";
+		return "Vuelos [origen=" + origen + ", destino=" + destino + "]";
 	}
+
 	
-	
+
 	
 }
